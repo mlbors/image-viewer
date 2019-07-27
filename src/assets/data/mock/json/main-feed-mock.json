@@ -1,0 +1,68 @@
+{
+  "images": [{
+    "check_json": true,
+    "container": "foo_container",
+    "container_index": 2,
+    "downloaded": true,
+    "fullname": "foo-001.jpg",
+    "img_attribut": "src",
+    "name": "foo-001",
+    "not_download": false,
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg/800px-The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg"
+  },
+  {
+    "check_json": true,
+    "container": "foo_container",
+    "container_index": 2,
+    "downloaded": true,
+    "fullname": "foo-001.jpg",
+    "img_attribut": "src",
+    "name": "foo-001",
+    "not_download": false,
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg/800px-The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg"
+  },
+  {
+    "check_json": true,
+    "container": "foo_container",
+    "container_index": 2,
+    "downloaded": true,
+    "fullname": "foo-001.jpg",
+    "img_attribut": "src",
+    "name": "foo-001",
+    "not_download": false,
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg/800px-The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg"
+  },
+  {
+    "check_json": true,
+    "container": "foo_container",
+    "container_index": 2,
+    "downloaded": true,
+    "fullname": "foo-001.jpg",
+    "img_attribut": "src",
+    "name": "foo-001",
+    "not_download": false,
+    "url": ""
+  },
+  {
+    "check_json": true,
+    "container": "foo_container",
+    "container_index": 2,
+    "downloaded": true,
+    "fullname": "none.jpg",
+    "img_attribut": "src",
+    "name": "foo-001",
+    "not_download": false,
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg/800px-The_spectacular_star-forming_Carina_Nebula_imaged_by_the_VLT_Survey_Telescope.jpg"
+  },
+  {
+    "check_json": true,
+    "container": "foo_container",
+    "container_index": 2,
+    "downloaded": true,
+    "fullname": "",
+    "img_attribut": "src",
+    "name": "foo-001",
+    "not_download": false,
+    "url": ""
+  }]
+}
