@@ -50,6 +50,8 @@ describe('ImageService', () => {
    * @param IImageType noPathNoUrlImageMock image object that returns no path and no url
    * @param IImageType noUrlImageMock only image object that returns no url
    * @param Array basicImageArrayMock basic array of image objects
+   * @param Object basicFeed basic image feed
+   * @param Object feedWithoutImagesKey a feed without the images key
    * @param Spy httpClientSpy spy on HTTP Client
    * @param HttpClient httpClient HTTP Client object
    * @param HttpTestingController httpTestingController mock controller for HTTP request
@@ -62,6 +64,8 @@ describe('ImageService', () => {
   const noPathNoUrlImageMock = NoPathNoUrlImageMock;
   const noUrlImageMock = NoUrlImageMock;
   const basicImageArrayMock = [basicImageMock, remoteImageMock, localImageMock];
+  const basicFeed = { images: basicImageArrayMock };
+  const feedWithoutImagesKey = { foo: 'foo' };
 
   let httpClientSpy: { get: jasmine.Spy };
   let httpClient: HttpClient;
@@ -139,6 +143,10 @@ describe('ImageService', () => {
       expect(result).toBeNull();
       done();
     });
+
+    const query = httpTestingController.expectOne(service.pathToJson);
+    query.flush(feedWithoutImagesKey, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
   });
 
   /********************************************************************************/
@@ -161,9 +169,10 @@ describe('ImageService', () => {
       expect(service.feed.length > 0).toBeTruthy();
     });
 
-    httpTestingController.expectOne(service.pathToJson).flush(basicImageArrayMock, { status: 200, statusText: 'Ok' });
+    const query = httpTestingController.expectOne(service.pathToJson);
+    query.flush(basicFeed, { status: 200, statusText: 'Ok' });
     httpTestingController.verify();
-  }, 10000);
+  });
 
   /********************************************************************************/
   /********************************************************************************/
@@ -201,7 +210,11 @@ describe('ImageService', () => {
       expect(result.length > 0).toBeTruthy();
       done();
     });
-  }, 10000);
+
+    const query = httpTestingController.expectOne(service.pathToJson);
+    query.flush(basicFeed, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
+  });
 
   /********************************************************************************/
   /********************************************************************************/
@@ -247,7 +260,11 @@ describe('ImageService', () => {
       expect(service.shuffledFeed.length > 0).toBeTruthy();
       done();
     });
-  }, 10000);
+
+    const query = httpTestingController.expectOne(service.pathToJson);
+    query.flush(basicFeed, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
+  });
 
   /********************************************************************************/
   /********************************************************************************/
@@ -285,7 +302,11 @@ describe('ImageService', () => {
       expect(result instanceof Image).toBeTruthy();
       done();
     });
-  }, 10000);
+
+    const query = httpTestingController.expectOne(service.pathToJson);
+    query.flush(basicFeed, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
+  });
 
   /********************************************************************************/
   /********************************************************************************/
@@ -307,7 +328,7 @@ describe('ImageService', () => {
       done();
     });
 
-  }, 10000);
+  });
 
   /********************************************************************************/
   /********************************************************************************/
@@ -390,7 +411,7 @@ describe('ImageService', () => {
       expect(result).not.toBeNull();
       done();
     });
-  }, 10000);
+  });
 
   /********************************************************************************/
   /********************************************************************************/
@@ -439,6 +460,6 @@ describe('ImageService', () => {
       expect(result).not.toBeNull();
       done();
     });
-  }, 10000);
+  });
 
 });
