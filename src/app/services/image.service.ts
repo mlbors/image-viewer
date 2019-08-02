@@ -93,6 +93,7 @@ export class ImageService implements IImageService {
       }
 
       this._http.get<Array<IImageType>>(this.pathToJson).subscribe(result => {
+        console.log(result);
         if (typeof result['images'] === 'undefined' || !result['images'] || result['images'] === null) {
           console.info('Cannot find images in feed');
           observer.next(null);
@@ -310,6 +311,7 @@ export class ImageService implements IImageService {
     return new Observable(observer => {
 
       console.info('::: GET RANDOM IMAGE :::');
+      let randomImageFromFeed = null;
 
       if (typeof this.feed === 'undefined' || this.feed === null || this.feed.length === 0) {
         this.getAllImages().subscribe(result => {
@@ -319,10 +321,11 @@ export class ImageService implements IImageService {
             observer.complete();
             return;
           } else {
-            const randomImageFromFeed = this._getRandomImageFromFeed();
+            randomImageFromFeed = this._getRandomImageFromFeed();
+            console.log(':::' + randomImageFromFeed);
             this.getImage(randomImageFromFeed).subscribe(image => {
               console.info(image);
-              observer.next(null);
+              observer.next(image);
               observer.complete();
               return;
             });
@@ -335,14 +338,14 @@ export class ImageService implements IImageService {
           observer.complete();
           return;
         });
+      } else {
+        randomImageFromFeed = this._getRandomImageFromFeed();
+        this.getImage(randomImageFromFeed).subscribe(image => {
+          console.info(image);
+          observer.next(image);
+          observer.complete();
+        });
       }
-
-      const randomImageFromFeed = this._getRandomImageFromFeed();
-      this.getImage(randomImageFromFeed).subscribe(image => {
-        console.info(image);
-        observer.next(null);
-        observer.complete();
-      });
 
     });
   }

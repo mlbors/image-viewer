@@ -283,6 +283,10 @@ describe('ImageService', () => {
       expect(result instanceof Image).toBeTruthy();
       done();
     });
+
+    const query = httpTestingController.expectOne((req) => req.method === 'GET');
+    query.flush(basicImageMock, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
   });
 
   /********************************************************************************/
@@ -303,8 +307,12 @@ describe('ImageService', () => {
       done();
     });
 
-    const query = httpTestingController.expectOne(service.pathToJson);
+    const query = httpTestingController.expectOne((req) => req.method === 'GET');
     query.flush(basicFeed, { status: 200, statusText: 'Ok' });
+
+    const imageQuery = httpTestingController.expectOne((req) => req.method === 'GET');
+    imageQuery.flush(basicImageMock, { status: 200, statusText: 'Ok' });
+
     httpTestingController.verify();
   });
 
@@ -318,7 +326,7 @@ describe('ImageService', () => {
   it('should return an image object when getImage is called', (done) => {
     const service: ImageService = TestBed.get(ImageService);
     service.localEndPoint = '../../assets/data/mock/image/';
-    service.pathToJson = 'fooPathToJson';
+    service.pathToJson = '../../assets/data/mock/json/main-feed-mock.json';
 
     service.getImage(basicImageMock).subscribe(result => {
       expect(result).toBeTruthy();
@@ -328,6 +336,9 @@ describe('ImageService', () => {
       done();
     });
 
+    const query = httpTestingController.expectOne(service.localEndPoint + basicImageMock.fullname);
+    query.flush(basicImageMock, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
   });
 
   /********************************************************************************/
@@ -346,7 +357,6 @@ describe('ImageService', () => {
       expect(result).toBeNull();
       done();
     });
-
   });
 
   /********************************************************************************/
@@ -405,12 +415,18 @@ describe('ImageService', () => {
 
   it('should return an object when tryToGetLocalImage is called and response status is equal to 200', (done) => {
     const service: ImageService = TestBed.get(ImageService);
+    service.localEndPoint = '../../assets/data/mock/image/';
+    service.pathToJson = '../../assets/data/mock/json/main-feed-mock.json';
 
     service.tryToGetLocalImage(basicImageMock).subscribe(result => {
       expect(result).toBeTruthy();
       expect(result).not.toBeNull();
       done();
     });
+
+    const query = httpTestingController.expectOne(service.localEndPoint + basicImageMock.fullname);
+    query.flush(basicImageMock, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
   });
 
   /********************************************************************************/
@@ -453,13 +469,17 @@ describe('ImageService', () => {
   it('should return an object when tryToGetRemoteImage is called and response status is equal to 200', (done) => {
     const service: ImageService = TestBed.get(ImageService);
     service.localEndPoint = '../../assets/data/mock/image/';
-    service.pathToJson = 'fooPathToJson';
+    service.pathToJson = '../../assets/data/mock/json/main-feed-mock.json';
 
     service.tryToGetRemoteImage(remoteImageMock).subscribe(result => {
       expect(result).toBeTruthy();
       expect(result).not.toBeNull();
       done();
     });
+
+    const query = httpTestingController.expectOne(remoteImageMock.url);
+    query.flush(remoteImageMock, { status: 200, statusText: 'Ok' });
+    httpTestingController.verify();
   });
 
 });

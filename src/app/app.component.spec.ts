@@ -12,8 +12,15 @@
 /*****************************/
 
 import { TestBed, async } from '@angular/core/testing';
+
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Observable } from 'rxjs';
+
 import { AppComponent } from './app.component';
+
+import { ImageListComponent } from './components/image-list/image-list.component';
 
 /********************************************************************************/
 /********************************************************************************/
@@ -23,6 +30,20 @@ import { AppComponent } from './app.component';
 /****************************/
 
 describe('AppComponent', () => {
+
+  /*******************************/
+  /********** ATTRIBUTS **********/
+  /*******************************/
+
+  /**
+   * @param Spy httpClientSpy spy on HTTP Client
+   * @param HttpClient httpClient HTTP Client object
+   * @param HttpTestingController httpTestingController mock controller for HTTP request
+   */
+
+  let httpClientSpy: { get: jasmine.Spy };
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
 
   /********************************************************************************/
   /********************************************************************************/
@@ -34,12 +55,18 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        ImageListComponent
       ],
     }).compileComponents();
+
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    httpClient = TestBed.get(HttpClient);
+    httpTestingController = TestBed.get(HttpTestingController);
   }));
 
   /********************************************************************************/
